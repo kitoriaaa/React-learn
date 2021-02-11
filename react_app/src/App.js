@@ -3,74 +3,78 @@ import React, { Component } from 'react';
 import './App.css';
 import { render } from 'react-dom';
 import Rect from './Rect';
+import { connect } from 'react-redux';
 
 
-let theme = {
-  light: {
-    backgroundColor: "#eef",
-    color: "#006",
-    padding: "10px",
-  },
-  dark: {
-    backgroundColor: "#006",
-    color: "#eef",
-    padding: "10px",
-  },
-};
-
-const ThemeContext = React.createContext(theme);
+function mappingState(state) {
+  return state;
+}
 
 class App extends Component {
-  static contextType = ThemeContext;
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Redux</h1>
+        <Message />
+        <Button />
+      </div>
+    );
+  }
+}
+
+App = connect()(App);
+
+class Message extends Component {
+  style = {
+    fontiSize: "20pt",
+    padding: "20px 5px",
+  }
+
+  render() {
+    return (
+      <p style={this.style}>
+        {this.props.message}: {this.props.counter}
+      </p>
+    );
+  }
+}
+
+Message = connect(mappingState)(Message);
+
+
+class Button extends Component {
+  style = {
+    fontSize: "16pt",
+    padding: "5px 10px"
+  }
 
   constructor(props) {
     super(props);
-    this.changeTheme = this.changeTheme.bind(this);
-    this.state = {
-      isDark: true,
-    };
+    this.doAction = this.doAction.bind(this);
   }
 
-  changeTheme(e) {
-    this.setState((state) => ({
-      isDark: !state.isDark,
-    }));
+  doAction(e) {
+    if (e.shiftKey) {
+      this.props.dispatch({ type: 'DECREMENT' });
+    } else {
+      this.props.dispatch({ type: 'INCREMENT' });
+    }
   }
 
   render() {
     return (
-      <div style={this.context[!this.state.isDark ? 'light' : 'dark']}>
-        <button onClick={this.changeTheme}>
-          {this.state.isDark ? "To Light" : "To dark"}
-        </button>
-        <Title value="Content page" />
-        <Message value="This is Content sample." />
-        <Message value="#これはテーマのサンプルです．" />
-      </div >
+      <button style={this.style}
+        onClick={this.doAction}>
+        click
+      </button>
     );
   }
 }
 
-
-class Title extends Component {
-  static contextType = ThemeContext;
-
-  render() {
-    return (
-      <h2 sytle={this.context}>{this.props.value}</h2>
-    );
-  }
-}
-
-
-class Message extends Component {
-  static contextType = ThemeContext;
-
-  render() {
-    return (
-      <p style={this.context}>{this.props.value}</p>
-    );
-  }
-}
+Button = connect()(Button);
 
 export default App;

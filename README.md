@@ -2,7 +2,7 @@
 React.js & Next.js 超入門を参考に勉強する．
 
 ## docker 関連
-windowsにnode.jsをインストールしたくないため，Dockerを使って開発することにする．
+windowsにnode.jsをインストールしたくないため，Dockerを使って開発することにする．<br>
 imageはnode:14を用いる
 ```
 docker-compose up -d
@@ -39,3 +39,12 @@ npx create-react-app <プロジェクト名>
 >   `cd react_app`<br>
 >   `yarn start`
 >   
+
+## Redux install
+```
+npm install --save redux
+
+npm install --save react-redux
+
+npm install --save-dev redux-devtools
+```
