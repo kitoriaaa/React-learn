@@ -7,26 +7,29 @@ function AlertMessage(props) {
     <div className="alert alert-primary h5 text-primary">
       <h5>{props.msg}</h5>
     </div>
-  )
+  );
 }
+
 
 function App() {
   const [val, setVal] = useState(1000);
   const [tax1, setTax1] = useState(0);
   const [tax2, setTax2] = useState(0);
-  const [msg, setMsg] = useState(<p>set a price ...</p>);
+  const [msg, setMsg] = useState(<p>Set a price...</p>)
 
   const doChange = (event) => {
     setVal(event.target.value);
   }
 
-  const doAction = () => {
-    let res = <div>
-      <p>軽減税率(8%) : {tax1} 円</p>
-      <p>通常税率(10%): {tax2} 円</p>
-    </div>;
+  useEffect(() => {
+    let res = (
+      <div>
+        <p>軽減税率 (8%): {tax1}</p>
+        <p>通常税率(10%): {tax2}</p>
+      </div>
+    );
     setMsg(res);
-  }
+  }, [tax1, tax2])
 
   useEffect(() => {
     setTax1(Math.floor(val * 1.08));
@@ -46,7 +49,6 @@ function App() {
           <label>Input:</label>
           <input type="number" className="form-control" onChange={doChange} />
         </div>
-        <button className="btn btn-primary" onClick={doAction}>Calc</button>
       </div>
     </div>
   )
