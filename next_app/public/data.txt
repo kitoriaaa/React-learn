@@ -1,0 +1,2 @@
+This is sample text.
+Check it text can fetch SWR.
