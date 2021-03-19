@@ -41,10 +41,19 @@ npx create-react-app <プロジェクト名>
 >   
 
 ## Redux install
-```
+```bash
 npm install --save redux
 
 npm install --save react-redux
 
 npm install --save-dev redux-devtools
+```
+
+
+## Next.js
+```bash
+npx create-next-app <project_name>
+
+# SWR install
+npm install swr
 ```
